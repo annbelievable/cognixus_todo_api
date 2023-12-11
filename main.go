@@ -1,8 +1,9 @@
 package main
 
 import (
+	"cognixus_todo_api/controllers"
 	"cognixus_todo_api/inits"
-	"fmt"
+	"cognixus_todo_api/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,7 +14,8 @@ func init() {
 }
 
 func main() {
-	fmt.Println("everything good")
+	inits.DB.AutoMigrate(&models.Todo{})
+
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
@@ -21,6 +23,12 @@ func main() {
 			"message": "Hello World!",
 		})
 	})
+
+	r.POST("/api/todo/", controllers.CreateTodo)
+	r.GET("/api/todo/", controllers.GetTodos)
+	r.GET("/api/todo/:id", controllers.GetTodo)
+	r.PUT("/api/todo/complete/:id", controllers.CompleteTodo)
+	r.DELETE("/api/todo/:id", controllers.DeleteTodo)
 
 	r.Run()
 }
