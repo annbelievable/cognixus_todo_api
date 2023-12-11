@@ -43,7 +43,6 @@ func GetTodos(ctx *gin.Context) {
 }
 
 func GetTodo(ctx *gin.Context) {
-
 	var todo models.Todo
 
 	result := inits.DB.First(&todo, ctx.Param("id"))
@@ -53,7 +52,6 @@ func GetTodo(ctx *gin.Context) {
 	}
 
 	ctx.JSON(200, gin.H{"data": todo})
-
 }
 
 func CompleteTodo(ctx *gin.Context) {
