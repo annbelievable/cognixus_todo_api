@@ -37,7 +37,7 @@ func HandleGoogleCallback(c *gin.Context) {
 		return
 	}
 
-	userInfo, err := getUserInfo(token)
+	userInfo, err := getGoogleUserInfo(token)
 	if err != nil {
 		c.String(http.StatusInternalServerError, "Failed to get user info")
 		return
@@ -50,7 +50,7 @@ func HandleGoogleCallback(c *gin.Context) {
 	c.String(http.StatusOK, "User name: %s, user email: %s", userInfo.Name, userInfo.Email)
 }
 
-func getUserInfo(token *oauth2.Token) (*UserInfo, error) {
+func getGoogleUserInfo(token *oauth2.Token) (*UserInfo, error) {
 	client := inits.GoogleOauthConfig.Client(context.Background(), token)
 
 	resp, err := client.Get("https://www.googleapis.com/oauth2/v3/userinfo")
