@@ -4,7 +4,6 @@ import (
 	"cognixus_todo_api/inits"
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -59,7 +58,6 @@ func getUserInfo(token *oauth2.Token) (*UserInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(body)
 
 	var userInfo UserInfo
 	err = json.Unmarshal(body, &userInfo)
