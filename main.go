@@ -11,6 +11,7 @@ import (
 func init() {
 	inits.LoadEnv()
 	inits.DBInit()
+	inits.SetGoogleOauthConfig()
 }
 
 func main() {
@@ -23,6 +24,9 @@ func main() {
 			"message": "Hello World!",
 		})
 	})
+
+	r.GET("/login/google/", controllers.HandleGoogleLogin)
+	r.GET("/callback/google/", controllers.HandleGoogleCallback)
 
 	r.POST("/api/todo/", controllers.CreateTodo)
 	r.GET("/api/todo/", controllers.GetTodos)
