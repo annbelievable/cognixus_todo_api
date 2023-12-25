@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
 )
@@ -41,6 +42,10 @@ func HandleGoogleCallback(c *gin.Context) {
 		c.String(http.StatusInternalServerError, "Failed to get user info")
 		return
 	}
+
+	session := sessions.Default(c)
+	session.Set("userEmail", userInfo.Email)
+	session.Save()
 
 	c.String(http.StatusOK, "User name: %s, user email: %s", userInfo.Name, userInfo.Email)
 }
