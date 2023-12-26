@@ -45,6 +45,7 @@ func HandleGoogleCallback(c *gin.Context) {
 
 	session := sessions.Default(c)
 	session.Set("userEmail", userInfo.Email)
+	session.Set("googleToken", token.AccessToken)
 	session.Save()
 
 	c.String(http.StatusOK, "User name: %s, user email: %s", userInfo.Name, userInfo.Email)
