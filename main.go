@@ -14,6 +14,7 @@ import (
 func init() {
 	inits.LoadEnv()
 	inits.DBInit()
+	inits.SetGithubOauthConfig()
 	inits.SetGoogleOauthConfig()
 }
 
@@ -40,6 +41,9 @@ func main() {
 
 	r.GET("/login/google/", controllers.HandleGoogleLogin)
 	r.GET("/callback/google/", controllers.HandleGoogleCallback)
+
+	r.GET("/login/github/", controllers.HandleGithubLogin)
+	r.GET("/callback/github/", controllers.HandleGithubCallback)
 
 	r.POST("/api/todo/", middlewares.AuthMiddleware(), controllers.CreateTodo)
 	r.GET("/api/todo/", middlewares.AuthMiddleware(), controllers.GetTodos)
